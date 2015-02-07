@@ -6,11 +6,9 @@ var config = fs.existsSync('./local.config.js') ? require('./local.config.js') :
 var T = new Twit(config.oauth);
 
 var mongoose = require('mongoose'),
-    Schema = mongoose.Schema,
-    ObjectId = Schema.ObjectId;
+    Schema = mongoose.Schema;
 
 var TweetsSchema = new Schema({
-	_id: ObjectId,
 	tweet: {}
 });
 
