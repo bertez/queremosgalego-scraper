@@ -33,7 +33,7 @@ function addTweet(tweet) {
 			return;
 		};
 
-		console.log("Added to db:", tweet.id);
+		console.log("Added to db:", tweet.id, t.tweet.created_at);
 	});
 
 };
