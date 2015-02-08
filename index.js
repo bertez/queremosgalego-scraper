@@ -3,10 +3,11 @@ var fs = require('fs');
 var Twit = require('twit');
 
 var config = fs.existsSync('./local.config.js') ? require('./local.config.js') : require('./config.js');
+
 var T = new Twit(config.oauth);
 
 var mongoose = require('mongoose'),
-    Schema = mongoose.Schema;
+Schema = mongoose.Schema;
 
 var TweetsSchema = new Schema({
 	tweet: {}
@@ -29,14 +30,14 @@ function addTweet(tweet) {
 
 	t.save(function(err) {
 		if (err) {
-			console.log(err)
+			console.log('ERROR:', err);
 			return;
-		};
+		}
 
 		console.log("Added to db:", tweet.id, t.tweet.created_at);
 	});
 
-};
+}
 
 var stream = T.stream('statuses/filter', { track: config.track });
 
@@ -51,7 +52,7 @@ stream.on('limit', function (limitMessage) {
 
 stream.on('disconnect', function (disconnectMessage) {
   console.log('DISCONNECT:', disconnectMessage);
-  console.log('Exiting');
+  console.log('EXITING');
 
   //Exit so supervisor can reload the process
   process.exit(1);
